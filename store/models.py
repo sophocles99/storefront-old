@@ -8,7 +8,7 @@ class Promotion(models.Model):
 
 class Collection(models.Model):
     title = models.CharField(max_length=255)
-    featured_product = models.ForeignKey('Product', on_delete=models.SET_NULL, null=True)
+    featured_product = models.ForeignKey('Product', on_delete=models.SET_NULL, null=True, related_name='+')
 
 
 class Product(models.Model):
@@ -54,7 +54,7 @@ class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
 
 
-class OrderItem(models.model):
+class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.PROTECT)
     product = models.ForeignKey(Product, on_delete=models.PROTECT)
     quantity = models.PositiveSmallIntegerField()
@@ -71,7 +71,7 @@ class Cart(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 
-class CartItem(models.model):
+class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveSmallIntegerField()
